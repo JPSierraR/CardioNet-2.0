@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_user.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <title>Administrar registro</title>
+    <style>
+        /* Estilos adicionales para la tabla */
+        .table-container {
+            width: 60%;  /* Ajusta el ancho de la tabla */
+            padding: 30px;
+            background: #828181;
+            margin: auto;
+            margin-top: 50px;
+            border-radius: 4px;
+            font-family: 'calibri';
+            color: white;
+            box-shadow: 7px 13px 37px #000;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #fff;
+            background-color: transparent;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 1rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #333;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #454d7d;
+        }
+
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: #828181;
+        }
+
+        .btn-danger {
+            background-color: #b20505;
+            border-color: #b20505;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem; /* Aumenta el tamaño de la fuente */
+            padding: 0.5rem 1rem; /* Ajusta el padding */
+        }
+
+        .btn-danger:hover {
+            background-color: #920404;
+            border-color: #920404;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/for_pacientes">Predecir ACV</a>
+        <a href="/config_pacientes">Administrar Pacientes</a>
+        <form action="/logout" method="get" style="display:inline;">
+            <button type="submit" class="logout-button">Cerrar Sesión</button>
+        </form>
+    </div>
+    
+    <div class="table-container">
+        <h4>Registro de Pacientes</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre del Paciente</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paciente in pacientes %}
+                <tr>
+                    <td>{{ paciente[1] }}</td>
+                    <td>
+                        <form action="{{ url_for('config_pacientes') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="paciente_id" value="{{ paciente[0] }}">
+                            <button type="submit" class="btn btn-danger">X</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="subnavbar">
+        <p>Devs: Juan Sierra, Jesus Gamboa</p>
+        <p>Proyecto: CardioNet 2.0</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('.btn-danger').forEach(button => {
+            button.addEventListener('click', function(event) {
+                if (!confirm('¿Estás seguro de que quieres eliminar este paciente?')) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

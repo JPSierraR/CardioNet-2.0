@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_user.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='modal.css') }}">
+
+    <title>Registrar Paciente</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/for_pacientes">Predecir ACV</a>
+        <a href="/config_pacientes">Administrar Pacientes</a>
+        <form action="/logout" method="get" style="display:inline;">
+            <button type="submit" class="logout-button">Cerrar Sesión</button>
+        </form>
+    </div>
+    <h2>Registrar Paciente</h2>
+    <div class="p2"> Formulario para registro de pacientes</div>
+
+    
+    <section class="form">
+        <form action="/for_pacientes" method="post">
+            <label for="Fullname">Nombre Completo:</label>
+            <input class="controls" type="text" name="Fullname" id="Fullname" placeholder="Ingrese su nombre completo" required><br><br>
+
+            <label for="Edad">Edad</label>
+            <input class="controls" type="number" id="Edad" name="Edad" min="0"><br><br>
+            
+            <label for="masculino">Masculino</label>
+            <input class="controls" type="radio" id="masculino" name="Sexo" value="1" required>
+            
+            <label for="femenino">Femenino</label>
+            <input class="controls" type="radio" id="femenino" name="Sexo" value="0" required><br><br>
+            
+            <label for="Tipo_dolor_pecho">Tipo de angina:</label>
+            <select id="Tipo_dolor_pecho" name="Tipo_dolor_pecho" required>
+                <option value="1">Clase I</option>
+                <option value="2">Clase II</option>
+                <option value="3">Clase III</option>
+                <option value="4">Clase IV</option>
+            </select><br><br>
+            
+            <label for="Presion_sanguinea">Presión Sanguínea:</label>
+            <input class="controls" type="number" id="Presion_sanguinea" name="Presion_sanguinea" min="0" placeholder="mmHg" required><br><br>
+            
+            <label for="Colesterol">Colesterol:</label>
+            <input class="controls" type="number" id="Colesterol" name="Colesterol" min="0" placeholder=" mg/dL" required><br><br>
+            
+            <label for="Glucosa_en_sangre_mayor_120">Glucosa en Sangre > 120 mg/dL:</label>
+            <select id="Glucosa_en_sangre_mayor_120" name="Glucosa_en_sangre_mayor_120" required>
+                <option value="1">Sí</option>
+                <option value="0">No</option>
+            </select><br><br>
+            
+            <label for="Resultados_EKG">Resultados EKG:</label>
+            <select id="Resultados_EKG" name="Resultados_EKG" required>
+                <option value="0">Normal</option>
+                <option value="1">Anormalidad en la onda ST-T</option>
+                <option value="2">Hipertrofia ventricular izquierda</option>
+            </select><br><br>
+            
+            <label for="Frecuencia_cardiaca_max">Frecuencia Cardíaca Máxima:</label>
+            <input class="controls" type="number" id="Frecuencia_cardiaca_max" name="Frecuencia_cardiaca_max" min="0" placeholder="ppm"><br><br>
+            
+            <label for="Angina_de_esfuerzo">Angina de Esfuerzo:</label>
+            <select id="Angina_de_esfuerzo" name="Angina_de_esfuerzo" required>
+                <option value="1">Sí</option>
+                <option value="0">No</option>
+            </select><br><br>
+            
+            <label for="Depresion_ST">Depresión del Segmento ST:</label>
+            <input class="controls" type="number" id="Depresion_ST" name="Depresion_ST" min="0" placeholder="decimales por ejemplo: 5.7" step="0.1"><br><br>
+            
+            <label for="Inclinacion_ST">Inclinación del Segmento ST:</label>
+            <input class="controls" type="number" id="Inclinacion_ST" name="Inclinacion_ST" min="0" placeholder="enteros por ejemplo: 4"><br><br>
+            
+            <label for="Numero_de_vasos_fluor">Número de arterias afectadas:</label>
+            <input class="controls" type="number" id="Numero_de_vasos_fluor" name="Numero_de_vasos_fluor" min="0" placeholder="Cantidad de arterias afectadas"><br><br>
+            
+            
+            <input class="botons" type="submit" value="REGISTRAR">
+        </form>
+
+        <div id="qrModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>QR code generado para el paciente:</p>
+                <img id="qrCode" src="" alt="QR Code">
+                <button id="acceptButton">Aceptar</button>
+            </div>
+        </div>
+    
+    </section>
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>QR code generado para el paciente:</p>
+            <img id="qrCode" src="" alt="QR Code">
+            <button id="acceptButton">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<div class="subnavbar">
+    <p>Devs: Juan Sierra, Jesus Gamboa</p>
+    <p>Proyecto: CardioNet 2.0</p>
+</div>
+<script>
+    const modal = document.getElementById('qrModal');
+    const qrCodeImage = document.getElementById('qrCode');
+    const span = document.getElementsByClassName('close')[0];
+    const acceptButton = document.getElementById('acceptButton');
+
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    acceptButton.onclick = function() {
+        modal.style.display = 'none';
+        document.getElementById('registerForm').reset();
+    }
+
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Función para mostrar el modal con el QR
+    function showQRModal(qrCodeUrl) {
+        qrCodeImage.src = qrCodeUrl;
+        modal.style.display = 'block';
+    }
+
+    // Lógica para mostrar el QR al cargar la página, si es necesario
+    {% if qr_generated %}
+        showQRModal('{{ qr_code_url }}');
+    {% endif %}
+</script>
+</body>
+</html>

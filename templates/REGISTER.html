@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>CardioNet</title>
+</head>
+<body>
+    <section class="form">
+        <h4>
+        REGISTRAR USUARIO
+        </h4>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+        <form action="/register" method="post">
+            <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingese su nombre" required>
+            <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingese su apellido" required>
+            <input class="controls" type="number" name="edad" id="edad" placeholder="Ingese su edad" min="0" required>
+            <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su correo" required>
+            <input class="controls" type="password" name="contra" id="contra" placeholder="ingrese su contraseña" required>
+            <input class="controls" type="text" name="master" id="master" placeholder="ingrese la clave maestra" required>
+            
+            <input class="botons" type="submit" value="REGISTRAR">
+            <p><a class="botons2" href="/">YA TENGO CUENTA</a></p>
+        </form>
+    </section>
+</body>
+</html>

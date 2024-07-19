@@ -1,0 +1,66 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #d1d8e0;
+}
+
+.corazon_sick {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background: #6a0572; /* Púrpura oscuro */
+    transform: rotate(-45deg);
+    box-shadow: -10px 10px 90px #6a0572;
+    animation: animate .6s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(-45deg) scale(1.07);
+    }
+    80% {
+        transform: rotate(-45deg) scale(1.0);
+    }
+    100% {
+        transform: rotate(-45deg) scale(0.8);
+    }
+}
+
+.corazon_sick::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    width: 70px;
+    height: 70px;
+    background: #6a0572; /* Púrpura oscuro */
+    border-radius: 50%;
+    box-shadow: -10px -10px 90px #6a0572;
+}
+
+.corazon_sick::after {
+    content: '';
+    position: absolute;
+    right: -50%;
+    width: 70px;
+    height: 70px;
+    background: #6a0572; /* Púrpura oscuro */
+    border-radius: 50%;
+    box-shadow: 10px 10px 90px #6a0572;
+}
+
+.text {
+    text-align: center;
+    margin-top: 80px; /* Ajusta el margen según sea necesario */
+    font-size: 24px; /* Tamaño de fuente del texto */
+    color: #333; /* Color del texto */
+    font-weight: bolder;
+    text-align: left;
+}

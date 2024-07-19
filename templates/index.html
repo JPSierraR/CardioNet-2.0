@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>CardioNet</title>
+</head>
+<body>
+    <section class="form">
+        <h4>
+        INICIAR SESIÓN
+        </h4>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form action="/login" method="post">
+            <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su correo">
+            <input class="controls" type="password" name="contra" id="contra" placeholder="ingrese su contraseña">
+            <input class="botons" type="submit" value="INICIAR SESIÓN">
+        </form>
+        <p><a class="botons2" href="/register">CREAR CUENTA</a></p>
+        
+        <p><a class="botons3" href="/busqueda">CONSULTAR RESULTADO</a></p>
+    </section>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_user.css') }}">
+    <title>CardioNet 2.0</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/for_pacientes">Predecir ACV</a>
+        <a href="/config_pacientes"> Administrar Pacientes</a>
+        <form action="/logout" method="get" style="display:inline;">
+            <button type="submit" class="logout-button">Cerrar Sesión</button>
+        </form>
+    </div>
+    <h1>CardioNet update 2.0</h1>
+    <p>Bienvenido, {{ session['nombres'] }}.</p>
+    <p>Esta página solo es accesible para usuarios autenticados.</p>
+
+    <div class="subnavbar">
+        <p>Devs: Juan Sierra, Jesus Gamboa</p>
+        <p>Proyecto: CardioNet 2.0</p>
+    </div>
+</body>
+</html>
